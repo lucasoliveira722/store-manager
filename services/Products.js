@@ -1,7 +1,8 @@
 const Products = require('../models/Products');
 
 const getAll = async () => {
-  Products.getAll();
+  const products = await Products.getAll();
+  return products;
 };
 
 const getById = async () => {
@@ -10,7 +11,7 @@ const getById = async () => {
   if (!product) {
     return {
       error: {
-        code: 'notFound',
+        code: 'Not Found',
         message: 'Product not found',
       },
     };

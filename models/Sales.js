@@ -1,20 +1,42 @@
 const connection = require('./connection');
 
+const serialize = (sale) => ({
+  saleId: sale.sale_id,
+  date: sale.date,
+  productId: sale.product_id,
+  quantity: sale.quantity,
+});
+
 const getAll = async () => {
-  const [sales] = await connection.execute(
-    'SELECT saleId, date, productId, quantity FROM StoreManager.sales ORDER BY saleId, productId;',
-  );
-  return sales;
+  const QUERY = `
+    SELECT salesProducts.saleId, sales.date, salesProducts.product_id, salesProducts.quantity
+    FROM StoreManager.sales_products AS salesProducts
+    INNER JOIN StoreManager.sales AS sales
+    ON salesProducts.sale_id = sales.id
+    ORDER BY saleId, productId;`;
+  const [sales] = await connection.execute(QUERY);
+  const serializedSales = sales.map((sale) => serialize(sale));
+  return serializedSales;
 };
 
 const getById = async (id) => {
+  const QUERY = `
+    SELECT sales.date, salesProducts.product_id, salesProducts.quantity
+    FROM StoreManager.sales_products AS salesProducts
+    INNER JOIN StoreManager.sales AS sales
+    ON salesProducts.sale_id = sales.id
+    WHERE salesProducts.sale_id = ?
+    ORDER BY salesProducts.sale_id;
+  `;
+
   const [sale] = await connection.execute(
-    'SELECT saleId, date, productId, quantity FROM StoreManager.sales WHERE salesId = ?;', [id],
+    QUERY, [id],
   );
 
   if (sale.length === 0) return null;
 
-  return sale;
+  const serializedSales = sale.map((s) => serialize(s));
+  return serializedSales;
 };
 
 module.exports = {
