@@ -6,12 +6,12 @@ const getAll = async (req, res) => {
   res.status(200).json(sales);
 };
 
-const getById = async (req, res) => {
+const getById = async (req, res, next) => {
   const { id } = req.params;
 
   const sale = await Sales.getById(id);
 
-  if (!sale) return res.status(404).json({ message: 'Sale not found' });
+  if (sale.error) return next(sale.error);
   return res.status(200).json(sale);
 };
 
