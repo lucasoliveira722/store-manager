@@ -5,17 +5,17 @@ const getAll = async () => {
   return products;
 };
 
-const getById = async () => {
-  const product = await Products.getById;
+const getById = async (id) => {
+  const product = await Products.getById(id);
 
-  if (!product) {
-    return {
-      error: {
-        code: 'Not Found',
-        message: 'Product not found',
-      },
-    };
-  }
+  // if (!product) {
+  //   return {
+  //     error: {
+  //       code: 'Not Found',
+  //       message: 'Product not found',
+  //     },
+  //   };
+  // }
 
   return product;
 };
