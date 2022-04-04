@@ -8,15 +8,6 @@ const getAll = async () => {
 const getById = async (id) => {
   const sale = await Sales.getById(id);
 
-  // if (!sale) {
-  //   return {
-  //     error: {
-  //       code: 'Not Found',
-  //       message: 'Sale not found',
-  //     },
-  //   };
-  // }
-
   return sale;
 };
 
