@@ -9,11 +9,11 @@ const serialize = (sale) => ({
 
 const getAll = async () => {
   const QUERY = `
-    SELECT salesProducts.saleId, sales.date, salesProducts.product_id, salesProducts.quantity
+    SELECT salesProducts.sale_id, sales.date, salesProducts.product_id, salesProducts.quantity
     FROM StoreManager.sales_products AS salesProducts
     INNER JOIN StoreManager.sales AS sales
     ON salesProducts.sale_id = sales.id
-    ORDER BY saleId, productId;`;
+    ORDER BY sale_id, product_id;`;
   const [sales] = await connection.execute(QUERY);
   const serializedSales = sales.map((sale) => serialize(sale));
   return serializedSales;
