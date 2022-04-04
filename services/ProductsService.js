@@ -1,6 +1,6 @@
 const Products = require('../models/ProductsModel');
 const nameExists = require('../helpers/Products/nameExists');
-const nameLength = require('../helpers/Products/nameLength');
+// const nameLength = require('../helpers/Products/nameLength');
 const notFound = require('../error/notFound');
 
 const getAll = async () => {
@@ -24,7 +24,7 @@ const getByName = async (name) => {
 
 const create = async (product) => {
   await nameExists(product.name);
-  nameLength(product.name);
+  // nameLength(product.name);
 
   const { id } = await Products.create(product);
   return { id };
