@@ -30,10 +30,22 @@ const create = async (req, res, next) => {
   }
 };
 
+const update = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name, quantity } = req.body;
+    await Products.update({ id, name, quantity });
+    return res.status(200).json({ id, name, quantity });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getAll,
   getById,
   create,
+  update,
 };
 
 // Try/catch em todas as controllers, para verificação de erro CHECK

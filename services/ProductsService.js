@@ -24,10 +24,18 @@ const getByName = async (name) => {
 
 const create = async (product) => {
   await nameExists(product.name);
-  // nameLength(product.name);
 
   const { id } = await Products.create(product);
   return { id };
+};
+
+const update = async (product) => {
+  const alreadyExists = await Products.getById(product.id);
+  if (!alreadyExists) {
+    throw notFound('Product not found');
+  }
+  const updated = await Products.update(product);
+  return updated;
 };
 
 module.exports = {
@@ -35,6 +43,7 @@ module.exports = {
   getById,
   getByName,
   create,
+  update,
 };
 
 // CHECK

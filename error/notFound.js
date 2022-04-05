@@ -1,6 +1,6 @@
 const notFound = (message) => ({
   message,
-  code: 404,
+  statusCode: 404,
   stack: (Error()).stack,
 });
 

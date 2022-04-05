@@ -1,6 +1,6 @@
 const alreadyExists = (message) => ({
   message,
-  code: 409,
+  statusCode: 409,
   stack: (Error()).stack,
 });
 

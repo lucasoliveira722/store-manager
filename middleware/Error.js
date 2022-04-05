@@ -1,6 +1,6 @@
 const middlewareError = (err, _req, res, _next) => {
-  if (err.code) {
-    return res.status(err.code).json({ message: err.message });
+  if (err.statusCode) {
+    return res.status(err.statusCode).json({ message: err.message });
   }
 
   console.log(err.message);
