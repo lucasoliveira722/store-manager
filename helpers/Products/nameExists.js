@@ -1,5 +1,5 @@
 const Products = require('../../models/ProductsModel');
-const alreadyExists = require('../../error/alreadyExists'); // importar Error - erro importado CHECK
+const alreadyExists = require('../../error/alreadyExists');
 
 const nameExists = async (name) => {
   const product = await Products.getByName(name);

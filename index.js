@@ -28,28 +28,22 @@ app.get('/', (_request, response) => {
 });
 
 app.get('/products', Products.getAll);
-
 app.get('/products/:id', Products.getById);
-
 app.post('/products',
   nameValidation,
   nameValidationZero,
   quantityValidation,
-  quantityValidationZero,
-  Products.create);
-
+  quantityValidationZero, Products.create);
 app.put('/products/:id',
   nameValidation,
   nameValidationZero,
   quantityValidation,
-  quantityValidationZero,
-  Products.update);
-
+  quantityValidationZero, Products.update);
 app.delete('/products/:id', Products.deleteProduct);
 
 app.get('/sales', Sales.getAll);
-
 app.get('/sales/:id', Sales.getById);
+app.post('/sales', Sales.create);
 
 app.use(middlewareError);
 
