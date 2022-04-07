@@ -16,11 +16,11 @@ const {
   quantityValidationZero,
 } = require('./middleware/validationsViaMiddlewareProducts');
 
-// const {
-//   productIdValidation,
-//   quantityValidationSales,
-//   quantityValidationZeroSales,
-// } = require('./middleware/validationsViaMiddlewareSales');
+const {
+  productIdValidation,
+  quantityValidationSales,
+  quantityValidationZeroSales,
+} = require('./middleware/validationsViaMiddlewareSales');
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_request, response) => {
@@ -43,7 +43,10 @@ app.delete('/products/:id', Products.deleteProduct);
 
 app.get('/sales', Sales.getAll);
 app.get('/sales/:id', Sales.getById);
-app.post('/sales', Sales.create);
+app.post('/sales',
+  productIdValidation,
+  quantityValidationSales,
+  quantityValidationZeroSales, Sales.create);
 
 app.use(middlewareError);
 
