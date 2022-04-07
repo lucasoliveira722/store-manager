@@ -42,9 +42,16 @@ const update = async (product) => {
   const { name, quantity, id } = product;
   await connection.execute(
     'UPDATE StoreManager.products SET name = ?, quantity = ? WHERE id = ?', [name, quantity, id],
-  );
-  return product;
-};
+    );
+    return product;
+  };
+  
+  const deleteProduct = async (id) => {
+    await connection.execute(
+      'DELETE FROM StoreManager.products WHERE id = ?', [id],
+    );
+    return {};
+  };
 
 module.exports = {
   getAll,
@@ -52,4 +59,5 @@ module.exports = {
   getByName,
   create,
   update,
+  deleteProduct,
 };

@@ -38,12 +38,22 @@ const update = async (product) => {
   return updated;
 };
 
+const deleteProduct = async (id) => {
+  const exists = await Products.getById(id);
+  if (!exists) {
+    throw notFound('Product not found');
+  }
+  await Products.deleteProduct(id);
+  return {};
+};
+
 module.exports = {
   getAll,
   getById,
   getByName,
   create,
   update,
+  deleteProduct,
 };
 
 // CHECK

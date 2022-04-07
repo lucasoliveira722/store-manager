@@ -41,11 +41,22 @@ const update = async (req, res, next) => {
   }
 };
 
+const deleteProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await Products.deleteProduct(id);
+    return res.status(204).json();
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getAll,
   getById,
   create,
   update,
+  deleteProduct,
 };
 
 // Try/catch em todas as controllers, para verificação de erro CHECK

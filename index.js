@@ -45,6 +45,8 @@ app.put('/products/:id',
   quantityValidationZero,
   Products.update);
 
+app.delete('/products/:id', Products.deleteProduct);
+
 app.get('/sales', Sales.getAll);
 
 app.get('/sales/:id', Sales.getById);
