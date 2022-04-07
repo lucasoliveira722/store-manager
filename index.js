@@ -9,16 +9,44 @@ const middlewareError = require('./middleware/Error');
 const app = express();
 app.use(bodyParser.json());
 
+const {
+  nameValidation,
+  nameValidationZero,
+  quantityValidation,
+  quantityValidationZero,
+} = require('./middleware/validationsViaMiddlewareProducts');
+
+// const {
+//   productIdValidation,
+//   quantityValidationSales,
+//   quantityValidationZeroSales,
+// } = require('./middleware/validationsViaMiddlewareSales');
+
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_request, response) => {
   response.send();
 });
 
 app.get('/products', Products.getAll);
+
 app.get('/products/:id', Products.getById);
-app.post('/products', Products.create);
-app.put('/products/:id', Products.update);
+
+app.post('/products',
+  nameValidation,
+  nameValidationZero,
+  quantityValidation,
+  quantityValidationZero,
+  Products.create);
+
+app.put('/products/:id',
+  nameValidation,
+  nameValidationZero,
+  quantityValidation,
+  quantityValidationZero,
+  Products.update);
+
 app.get('/sales', Sales.getAll);
+
 app.get('/sales/:id', Sales.getById);
 
 app.use(middlewareError);

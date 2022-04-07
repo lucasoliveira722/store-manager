@@ -1,6 +1,6 @@
 const smallLength = (message) => ({
   message,
-  statusCode: 409,
+  statusCode: 422,
   stack: (Error()).stack,
 });
 
