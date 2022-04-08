@@ -36,7 +36,7 @@ const update = async (req, res, next) => {
   try {
     const { id } = req.params;
     const [{ productId, quantity }] = req.body;
-    await Sales.update(id, { productId, quantity });
+    await Sales.update(id, [{ productId, quantity }]);
     return res.status(200).json({ saleId: id, itemUpdated: req.body });
   } catch (err) {
     next(err);
