@@ -47,6 +47,10 @@ app.post('/sales',
   productIdValidation,
   quantityValidationSales,
   quantityValidationZeroSales, Sales.create);
+app.put('/sales/:id',
+  productIdValidation,
+  quantityValidationSales,
+  quantityValidationZeroSales, Sales.update);
 
 app.use(middlewareError);
 
