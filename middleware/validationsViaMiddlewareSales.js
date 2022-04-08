@@ -1,30 +1,39 @@
 const smallLength = require('../error/smallLength');
 const noAttribute = require('../error/noAttribute');
 
-const productIdValidation = (req, res, next) => {
-  const { productId } = req.body;
+const productIdValidation = (req, _res, next) => {
+  // const { productId } = req.body;
+  const requisition = req.body;
 
-  if (!productId) {
-    throw noAttribute('"productId" is required');
-  }
+  requisition.forEach(({ productId }) => {
+    if (!productId) {
+      throw noAttribute('"productId" is required');
+    }
+  });
   next();
 };
 
 const quantityValidationSales = (req, _res, next) => {
-  const { quantity } = req.body;
+  // const { quantity } = req.body;
+  const requisition = req.body;
 
-  if (quantity && (quantity <= 0)) {
-    throw smallLength('"quantity" must be greater than or equal to 1');
-  }
+  requisition.forEach(({ quantity }) => {
+    if (quantity && (+quantity <= 0)) {
+      throw smallLength('"quantity" must be greater than or equal to 1');
+    }
+  });
   next();
 };
 
 const quantityValidationZeroSales = (req, _res, next) => {
-  const { quantity } = req.body;
+  // const { quantity } = req.body;
+  const requisition = req.body;
 
-  if (!quantity) {
-    throw noAttribute('"quantity" is required');
-  }
+  requisition.forEach(({ quantity }) => {
+    if (!quantity) {
+      throw noAttribute('"quantity" is required');
+    }
+  });
   next();
 };
 
