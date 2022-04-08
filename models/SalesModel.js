@@ -46,7 +46,7 @@ const create = async (product) => {
 
   product.forEach(async ({ productId, quantity }) => {
     await connection.execute(
-      'INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)',
+      'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)',
       [insertId, productId, quantity],
     );
   });
