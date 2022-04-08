@@ -32,13 +32,13 @@ app.get('/products/:id', Products.getById);
 app.post('/products',
   nameValidation,
   nameValidationZero,
-  quantityValidation,
-  quantityValidationZero, Products.create);
+  quantityValidationZero,
+  quantityValidation, Products.create);
 app.put('/products/:id',
   nameValidation,
   nameValidationZero,
-  quantityValidation,
-  quantityValidationZero, Products.update);
+  quantityValidationZero,
+  quantityValidation, Products.update);
 app.delete('/products/:id', Products.deleteProduct);
 
 app.get('/sales', Sales.getAll);
