@@ -22,7 +22,7 @@ const nameValidationZero = (req, _res, next) => {
 const quantityValidation = (req, _res, next) => {
   const { quantity } = req.body;
 
-  if (quantity && (quantity <= 0)) {
+  if (quantity && (quantity < 1)) {
     throw smallLength('"quantity" must be greater than or equal to 1');
   }
   next();
