@@ -5,8 +5,6 @@ const ProductsController = require('../../../controllers/ProductsController');
 const ProductsServices = require("../../../services/ProductsService");
 
 describe('Products Controllers', () => {
-  const response = {};
-  const request = {};
   const productsListMock = [
     {
       "id": 1,
@@ -25,26 +23,24 @@ describe('Products Controllers', () => {
     }
   ];
 
-  const emptyProductsMock = [];
+  // const productsByIdMock = {
+  //   "id": 1,
+  //   "name": "Martelo de Thor",
+  //   "quantity": 10
+  // }
 
-  const productsByIdMock = {
-    "id": 1,
-    "name": "Martelo de Thor",
-    "quantity": 10
-  }
+  const response = {};
+  const request = {};
 
   before(() => {
+    request.body = {};
     response.status = stub().returns(response);
     response.json = stub().returns(response);
-    response.end = stub();
   });
 
   describe('Test Get All', () => {
     before(() => {
-      request.body = {};
       sinon.stub(ProductsServices, 'getAll').resolves(productsListMock);
-      response.status = sinon.stub().returns(response);
-      response.json = sinon.stub().returns();
     });
 
     after(() => {
@@ -54,6 +50,7 @@ describe('Products Controllers', () => {
 
   it('Receives status code of 200', async () => {
     await ProductsController.getAll(request, response);
-    expect(response.status.calledWith(200)).to.be.true;
+    expect(response.status.calledWith(200)).to.be.equal(true);
+    expect(response.json.calledWith(productsListMock)).to.be.equal(true);
   });
 });

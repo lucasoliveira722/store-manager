@@ -1,11 +1,5 @@
 const connection = require('./connection');
-
-const serialize = (sale) => ({
-  saleId: sale.sale_id,
-  date: sale.date,
-  productId: sale.product_id,
-  quantity: sale.quantity,
-});
+const serialize = require('../helpers/Sales/serialize');
 
 const getAll = async () => {
   const QUERY = `
@@ -15,7 +9,7 @@ const getAll = async () => {
     ON salesProducts.sale_id = sales.id
     ORDER BY sale_id, product_id;`;
   const [sales] = await connection.execute(QUERY);
-  const serializedSales = sales.map((sale) => serialize(sale));
+  const serializedSales = sales.map((sale) => serialize.serialize(sale));
   return serializedSales;
 };
 
@@ -35,7 +29,7 @@ const getById = async (id) => {
 
   if (sale.length === 0) return null;
 
-  const serializedSales = sale.map((s) => serialize(s));
+  const serializedSales = sale.map((s) => serialize.serialize(s));
   return serializedSales;
 };
 
