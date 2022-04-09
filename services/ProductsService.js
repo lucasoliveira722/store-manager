@@ -1,6 +1,5 @@
 const Products = require('../models/ProductsModel');
 const nameExists = require('../helpers/Products/nameExists');
-// const nameLength = require('../helpers/Products/nameLength');
 const notFound = require('../error/notFound');
 
 const getAll = async () => {
