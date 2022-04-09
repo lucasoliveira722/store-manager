@@ -4,8 +4,7 @@ const SalesServices = require("../../../services/SalesService");
 const SalesModels = require('../../../models/SalesModel');
 
 describe('Sales model', () => {
-  const salesListMock =
-    [
+  const salesListMock = [
       {"saleId": 1, "date": "2022-04-08T21:59:56.000Z", "productId": 1, "quantity": 5},
       {"saleId": 1, "date": "2022-04-08T21:59:56.000Z", "productId": 2, "quantity": 10},
       {"saleId": 2, "date": "2022-04-08T21:59:56.000Z", "productId": 3, "quantity": 15}
@@ -17,7 +16,14 @@ describe('Sales model', () => {
       "productId": 3,
       "quantity": 15
     }
-  ]
+  ];
+
+  const newSaleMock = [
+    { "productId": 1, "quantity": 5 },
+    { "productId": 2, "quantity": 10 },
+  ];
+
+  const createSaleMock = { id: 1, itemsSold: newSaleMock };
 
   describe('testing Get All', () => {
     it('check if returns all items', async () => {
@@ -35,11 +41,19 @@ describe('Sales model', () => {
       const result = await SalesServices.getById(2);
       console.log(result);
 
-      // expect(result.error).to.be.equals(false);
-      // expect(result.code).to.be.equals(200);
-      // expect(result.sale).to.be.equals(salesByIdMock);
       expect(result).to.be.an('array')
       SalesModels.getById.restore();
     })
+  });
+
+  describe('testing create', () => {
+    it('check if returns the inserted sale', async () => {
+      sinon.stub(SalesModels, 'create').resolves(createSaleMock);
+      const result = await SalesServices.create(newSaleMock);
+
+      expect(result).to.be.deep.equals({ id: 1, itemsSold: createSaleMock})
+      SalesModels.create.restore();
+    })
   })
+  
 });
