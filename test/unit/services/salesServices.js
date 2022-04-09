@@ -49,5 +49,17 @@ describe('Sales model', () => {
       expect(result).to.be.equals(salesListMock);
       SalesModels.getAll.restore();
     })
+  });
+
+  describe('testing Get By Id', () => {
+    it('check if returns the correct items for the id', async () => {
+      sinon.stub(SalesModels, 'getById').resolves(salesByIdMock);
+      const result = await SalesServices.getById(1);
+
+      expect(result.error).to.be.equals(false);
+      expect(result.code).to.be.equals(200);
+      expect(result.sale).to.be.equals(salesByIdMock);
+      SalesModels.getById.restore();
+    })
   })
 });
