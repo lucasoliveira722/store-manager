@@ -3,8 +3,10 @@ const Products = require('../services/ProductsService');
 const getAll = async (req, res, next) => {
   try {
     const products = await Products.getAll();
-    res.status(200).json(products);
+    // console.log(products);
+    return res.status(200).json(products);
   } catch (err) {
+    // console.log(err);
     next(err);
   }
 };
