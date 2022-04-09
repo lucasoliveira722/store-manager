@@ -45,15 +45,5 @@ describe('Sales model', () => {
       SalesModels.getById.restore();
     })
   });
-
-  describe('testing create', () => {
-    it('check if returns the inserted sale', async () => {
-      sinon.stub(SalesModels, 'create').resolves(createSaleMock);
-      const result = await SalesServices.create(newSaleMock);
-
-      expect(result).to.be.deep.equals({ id: 1, itemsSold: createSaleMock})
-      SalesModels.create.restore();
-    })
-  })
   
 });
