@@ -18,7 +18,7 @@ describe('Products Services', () => {
       sinon.stub(ProductsModels, 'getAll').resolves(productsListMock);
       const result = await ProductsServices.getAll();
 
-      expect(result).to.be.equals(productsListMock);
+      expect(result).to.be.deep.equals(productsListMock);
 
       ProductsModels.getAll.restore();
     });
