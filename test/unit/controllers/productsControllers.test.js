@@ -14,7 +14,7 @@ describe("Products Controllers", () => {
   const productsByIdMock = { id: 1, name: "Martelo de Thor", quantity: 10 };
 
   const response = {};
-  const request = {};
+  const request = { params: { id: 1 }};
   const next = {};
 
   beforeEach(() => {
@@ -24,7 +24,6 @@ describe("Products Controllers", () => {
   });
 
   describe("Test Get All", () => {
-
     afterEach(() => {
       ProductsServices.getAll.restore();
     });
@@ -34,6 +33,20 @@ describe("Products Controllers", () => {
       // console.log(response.status);
       expect(response.status.calledWith(200)).to.be.equal(true);
       expect(response.json.calledWith(productsListMock[0]));
+    });
+  });
+  
+  describe("Test Get By Id", () => {
+    beforeEach(() => {
+      sinon.stub(ProductsServices, "getById").resolves(productsByIdMock)
+    })
+    afterEach(() => {
+      ProductsServices.getById.restore();
+    });
+
+    it("Receives status code of 200", async () => {
+      await ProductsController.getById(request, response, next);
+      expect(response.status.calledWith(200)).to.be.equal(true);
     });
   });
 });
